@@ -14,6 +14,7 @@
  **/
 import * as React from 'react'
 import CopyCoordinates from '../copy-coordinates'
+import MeasureDistance from '../measure-distance'
 import { Menu, MenuItem } from '../menu'
 import styled from 'styled-components'
 
@@ -64,7 +65,14 @@ const renderCopyCoordinatesMenu = ({ coordinateValues, closeMenu }: Props) => (
     />
   </MenuItem>
 )
-
+const renderMeasureDistanceMenu = ({ coordinateValues, closeMenu }: Props) => (
+  <MenuItem value="MeasureDistance">
+    <MeasureDistance
+      coordinateValues={coordinateValues}
+      closeParent={closeMenu}
+    />
+  </MenuItem>
+)
 const renderHistogramMenu = () => (
   <MenuItem value="Histogram">
     <Icon className="interaction-icon fa fa-bar-chart" />
@@ -110,6 +118,7 @@ export const MapContextMenu = (props: Props) => {
     typeof mouseLat === 'number' && typeof mouseLon === 'number'
   const menuItems = []
   if (hasMouseCoordinates) {
+    menuItems.push(renderMeasureDistanceMenu(props))
     menuItems.push(renderCopyCoordinatesMenu(props))
   }
   menuItems.push(renderHistogramMenu())
